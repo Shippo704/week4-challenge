@@ -3,36 +3,37 @@ var timerEl = document.getElementById("timer");
 var startButton = document.getElementById("start");
 var questionEl = document.getElementById("question");
 var answerListEl = document.getElementById("answers");
+var highscoreEl = document.getElementById("highscore");
 var ans1 = document.getElementById("ans1");
 var ans2 = document.getElementById("ans2");
 var ans3 = document.getElementById("ans3");
 var ans4 = document.getElementById("ans4");
+var first = document.getElementById("first");
+var second = document.getElementById("second");
+var third = document.getElementById("third");
+var fourth = document.getElementById("fourth");
+var fifth = document.getElementById("fifth");
 var qNum = 0;
+var score = 0;
 
-//Timer
 timerEl.style.visibility = "hidden";
+highscoreEl.style.visibility = "hidden";
+
+//Timer Functions
 var timeRem;
-var quizTimer;
-var myTimer = function() {
+var timer = setInterval(function() {
     timeRem--;
     timerEl.textContent = "Time: " + timeRem;
 
     if (timeRem <= 0) {
         timeRem = 0;
-        timerEl.textContent = "Time's Up!";
+        clearInterval(myTimer)
         endQuiz();
-    }
-
-}
-
-function timer() {
-    quizTimer = setInterval(myTimer, 1000);
-}
+       }
+}, 1000)
 
 function reduceTimer() {
-    clearInterval(timer);
     timeRem = timeRem - 10;
-    quizTimer = setInterval(myTimer, 1000);
 }
 
 //Start Button Functionality
@@ -46,21 +47,24 @@ startButton.addEventListener("click", function() {
     timerEl.style.visibility = "visible";
 
     timeRem = 30;
-    timer();
     question1();
 })
 
 // When an answer is clicked
 answerListEl.addEventListener("click", function(event) {
     var answer = event.target;
+
+    // Answer is correct
     if (answer.matches(".correct")) {
         qNum++;
     }
+    // Answer is incorrect
     else {
         reduceTimer();
         qNum++;
     }
 
+    // Navigate to the correct question
     if (qNum == 1) {
         question2();
     }
@@ -87,8 +91,6 @@ function question1() {
     ans3.textContent = "<h3>";
     ans4.textContent = "<h6>";
     ans2.classList.add("correct");
-
-
 }
 
 //Question 2
@@ -142,8 +144,10 @@ function question5() {
 //End of Quiz
 function endQuiz() {
     answerListEl.style.visibility = "hidden";
-    questionEl.textContent = "Game Over! Score: "+ timeRem;
+    //score = timeRem;
+    questionEl.textContent = "Game Over! Score: " + timeRem;
     clearInterval(timer);
     timerEl.style.visibility = "hidden";
+    highscoreEl.style.visibility = "visible";
 
 }
