@@ -59,6 +59,18 @@ function question1() {
     ans2.textContent = "<h1>";
     ans3.textContent = "<h3>";
     ans4.textContent = "<h6>";
+
+    //check the answer
+    answerListEl.addEventListener("click", function(event) {
+        var answer = event.target;
+        if (answer == ans2) {
+            question2();
+        }
+        else {
+            timerEl.timeLeft = timerEl.timeLeft - 10;
+            question2();
+        }
+    })
 }
 
 //Question 2
@@ -68,6 +80,18 @@ function question2() {
     ans2.textContent = "object";
     ans3.textContent = "number";
     ans4.textContent = "undefined";
+
+    //check the answer
+    answerListEl.addEventListener("click", function(event) {
+        var answer = event.target;
+        if (answer == ans3) {
+            question3();
+        }
+        else {
+            timerEl.timeLeft = timerEl.timeLeft - 10;
+            question3();
+        }
+    })
 }
 
 //Question 3
@@ -77,6 +101,18 @@ function question3() {
     ans2.textContent = "object";
     ans3.textContent = "number";
     ans4.textContent = "undefined";
+
+    //check the answer
+    answerListEl.addEventListener("click", function(event) {
+        var answer = event.target;
+        if (answer == ans1) {
+            question4();
+        }
+        else {
+            timerEl.timeLeft = timerEl.timeLeft - 10;
+            question4();
+        }
+    })
 }
 
 //Question 4
@@ -86,6 +122,18 @@ function question4() {
     ans2.textContent = "object";
     ans3.textContent = "number";
     ans4.textContent = "undefined";
+
+    //check the answer
+    answerListEl.addEventListener("click", function(event) {
+        var answer = event.target;
+        if (answer == ans4) {
+            question5();
+        }
+        else {
+            timerEl.timeLeft = timerEl.timeLeft - 10;
+            question5();
+        }
+    })
 }
 
 //Question 5
@@ -95,6 +143,23 @@ function question5() {
     ans2.textContent = "object";
     ans3.textContent = "number";
     ans4.textContent = "undefined";
+
+    //check the answer
+    answerListEl.addEventListener("click", function(event) {
+        var answer = event.target;
+        if (answer == ans2) {
+            endQuiz();
+        }
+        else {
+            timerEl.timeLeft = timerEl.timeLeft - 10;
+            endQuiz();
+        }
+    })
+}
+
+function endQuiz() {
+    answerListEl.style.visibility = "hidden";
+    questionEl.textContent = "Game Over!";
 }
 
 //Start Timer
