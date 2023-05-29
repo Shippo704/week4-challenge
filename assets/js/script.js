@@ -1,7 +1,9 @@
+//Global variables
 var timerEl = document.getElementById("timer");
 var startButton = document.getElementById("start");
 var qNum = 0;
 
+//Setting up questions
 var body = document.body;
 var questionEl = document.createElement("p");
 var answerListEl = document.createElement("ul");
@@ -10,17 +12,20 @@ var ans2 = document.createElement("li");
 var ans3 = document.createElement("li");
 var ans4 = document.createElement("li");
 
+//Default text
 questionEl.textContent ="Question:";
 ans1.textContent = "answer 1";
 ans2.textContent = "answer 2";
 ans3.textContent = "answer 3";
 ans4.textContent = "answer 4";
 
+//Joining all answers into one element
 answerListEl.appendChild(ans1);
 answerListEl.appendChild(ans2);
 answerListEl.appendChild(ans3);
 answerListEl.appendChild(ans4);
 
+//Timer
 function timer() {
     var timeLeft = 90;
 
@@ -35,6 +40,7 @@ function timer() {
     }, 1000)
 }
 
+//Start Button Functionality
 startButton.addEventListener("click", function() {
 
     var quizArea = document.getElementById("quizArea");
@@ -42,11 +48,54 @@ startButton.addEventListener("click", function() {
     quizArea.appendChild(answerListEl);
 
     startButton.style.visibility = "hidden";
+
+    question1();
 })
 
+//Question 1
 function question1() {
-    
+    questionEl.textContent = "Which of these HTML tags has the largest default font size?";
+    ans1.textContent = "<p>";
+    ans2.textContent = "<h1>";
+    ans3.textContent = "<h3>";
+    ans4.textContent = "<h6>";
 }
 
+//Question 2
+function question2() {
+    questionEl.textContent = "var x = 17; What variable type is x?";
+    ans1.textContent = "string";
+    ans2.textContent = "object";
+    ans3.textContent = "number";
+    ans4.textContent = "undefined";
+}
 
+//Question 3
+function question3() {
+    questionEl.textContent = "var x = 'my variable'; What variable type is x?";
+    ans1.textContent = "string";
+    ans2.textContent = "object";
+    ans3.textContent = "number";
+    ans4.textContent = "undefined";
+}
+
+//Question 4
+function question4() {
+    questionEl.textContent = "var x; What variable type is x?";
+    ans1.textContent = "string";
+    ans2.textContent = "object";
+    ans3.textContent = "number";
+    ans4.textContent = "undefined";
+}
+
+//Question 5
+function question5() {
+    questionEl.textContent = "var x = {direction:'north', side:'front'}; What variable type is x?";
+    ans1.textContent = "string";
+    ans2.textContent = "object";
+    ans3.textContent = "number";
+    ans4.textContent = "undefined";
+}
+
+//Start Timer
 timer();
