@@ -16,6 +16,7 @@
     <div id = "quizArea">
         <h1 id = "title">Web Coding Quiz</h1>
         <button id = "start">Start Quiz!</button>
+        <button id = "restart">Play Again</button>
         <p id = "question">Question:</p>
         <ul id = "answers">
             <li id="ans1">answer1</li>
@@ -24,13 +25,16 @@
             <li id="ans4">answer4</li>
         </ul>
     </div>
-    <div id = "highscore">
-        <ol>
-            <li id="first"></li>
-            <li id="second"></li>
-            <li id="third"></li>
-            <li id="fourth"></li>
-            <li id="fifth"></li>
+    <div id = enterScore>
+        <form>
+            <label>Name:</label>
+            <input type = "text" name = "name" id = "name">
+            <button id = "submit">Submit</button>
+        </form>
+    </div>
+    <div id = scorelist>
+        <h3>Previous Scores:</h3>
+        <ol id="scores">
         </ol>
     </div>
 

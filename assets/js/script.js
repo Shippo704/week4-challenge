@@ -1,23 +1,27 @@
 //Global variables
 var timerEl = document.getElementById("timer");
 var startButton = document.getElementById("start");
+var restartButton = document.getElementById("restart");
 var questionEl = document.getElementById("question");
 var answerListEl = document.getElementById("answers");
-var highscoreEl = document.getElementById("highscore");
+var scoreList = document.getElementById("scorelist");
+var prevscoreEl = document.getElementById("scores");
+var prevscoreForm = document.getElementById("enterScore");
+var submitButton = document.getElementById("submit");
 var ans1 = document.getElementById("ans1");
 var ans2 = document.getElementById("ans2");
 var ans3 = document.getElementById("ans3");
 var ans4 = document.getElementById("ans4");
-var first = document.getElementById("first");
-var second = document.getElementById("second");
-var third = document.getElementById("third");
-var fourth = document.getElementById("fourth");
-var fifth = document.getElementById("fifth");
 var qNum = 0;
-var score = 0;
+var score;
+var list = [];
 
+restartButton.style.visibility = "hidden";
+questionEl.style.visibility = "hidden";
+answerListEl.style.visibility = "hidden";
 timerEl.style.visibility = "hidden";
-highscoreEl.style.visibility = "hidden";
+scoreList.style.visibility = "hidden";
+prevscoreForm.style.visibility = "hidden";
 
 //Timer Functions
 var timeRem;
@@ -45,6 +49,8 @@ startButton.addEventListener("click", function() {
 
     startButton.style.visibility = "hidden";
     timerEl.style.visibility = "visible";
+    questionEl.style.visibility = "visible";
+    answerListEl.style.visibility = "visible";
 
     timeRem = 30;
     question1();
@@ -144,10 +150,51 @@ function question5() {
 //End of Quiz
 function endQuiz() {
     answerListEl.style.visibility = "hidden";
-    //score = timeRem;
-    questionEl.textContent = "Game Over! Score: " + timeRem;
+    score = timeRem;
+    if (score<0) {
+        score = 0;
+    }
+    questionEl.textContent = "Game Over! Score: " + score;
     clearInterval(timer);
     timerEl.style.visibility = "hidden";
-    highscoreEl.style.visibility = "visible";
-
+    prevscoreForm.style.visibility = "visible";
+    scoreList.style.visibility = "visible";
 }
+
+// Add previous score to list
+submitButton.addEventListener("click", function(event){
+    event.preventDefault();
+    var submitName = document.createElement("li");
+    var username = document.querySelector("#name").value;
+    submitName.textContent = username + " --- " + score;
+    prevscoreEl.appendChild(submitName);
+    list.push(username + " --- " + score);
+    localStorage.setItem("scores", JSON.stringify(list));
+    prevscoreForm.style.visibility = "hidden";
+
+    restartButton.style.visibility = "visible";
+})
+
+//Play again?
+restartButton.addEventListener("click", function() {
+    
+    restartButton.style.visibility = "hidden";
+    timerEl.style.visibility = "visible";
+    questionEl.style.visibility = "visible";
+    answerListEl.style.visibility = "visible";
+    scoreList.style.visibility = "hidden";
+    
+    timeRem = 30;
+    qNum = 0;
+    timer = setInterval(function() {
+        timeRem--;
+        timerEl.textContent = "Time: " + timeRem;
+    
+        if (timeRem <= 0) {
+            timeRem = 0;
+            clearInterval(myTimer)
+            endQuiz();
+           }
+    }, 1000);
+    question1();
+})
