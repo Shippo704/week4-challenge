@@ -1,43 +1,38 @@
 //Global variables
 var timerEl = document.getElementById("timer");
 var startButton = document.getElementById("start");
+var questionEl = document.getElementById("question");
+var answerListEl = document.getElementById("answers");
+var ans1 = document.getElementById("ans1");
+var ans2 = document.getElementById("ans2");
+var ans3 = document.getElementById("ans3");
+var ans4 = document.getElementById("ans4");
 var qNum = 0;
 
-//Setting up questions
-var body = document.body;
-var questionEl = document.createElement("p");
-var answerListEl = document.createElement("ul");
-var ans1 = document.createElement("li");
-var ans2 = document.createElement("li");
-var ans3 = document.createElement("li");
-var ans4 = document.createElement("li");
-
-//Default text
-questionEl.textContent ="Question:";
-ans1.textContent = "answer 1";
-ans2.textContent = "answer 2";
-ans3.textContent = "answer 3";
-ans4.textContent = "answer 4";
-
-//Joining all answers into one element
-answerListEl.appendChild(ans1);
-answerListEl.appendChild(ans2);
-answerListEl.appendChild(ans3);
-answerListEl.appendChild(ans4);
-
 //Timer
+timerEl.style.visibility = "hidden";
+var timeRem;
+var quizTimer;
+var myTimer = function() {
+    timeRem--;
+    timerEl.textContent = "Time: " + timeRem;
+
+    if (timeRem <= 0) {
+        timeRem = 0;
+        timerEl.textContent = "Time's Up!";
+        endQuiz();
+    }
+
+}
+
 function timer() {
-    var timeLeft = 90;
+    quizTimer = setInterval(myTimer, 1000);
+}
 
-    var timeInterval = setInterval(function() {
-        timeLeft--;
-        timerEl.textContent = "Time: "+ timeLeft;
-
-        if (timeLeft == 0){
-            clearInterval(timeInterval);
-            timerEl.textContent = "Time's Up!"
-        }
-    }, 1000)
+function reduceTimer() {
+    clearInterval(timer);
+    timeRem = timeRem - 10;
+    quizTimer = setInterval(myTimer, 1000);
 }
 
 //Start Button Functionality
@@ -48,8 +43,40 @@ startButton.addEventListener("click", function() {
     quizArea.appendChild(answerListEl);
 
     startButton.style.visibility = "hidden";
+    timerEl.style.visibility = "visible";
 
+    timeRem = 30;
+    timer();
     question1();
+})
+
+// When an answer is clicked
+answerListEl.addEventListener("click", function(event) {
+    var answer = event.target;
+    if (answer.matches(".correct")) {
+        qNum++;
+    }
+    else {
+        reduceTimer();
+        qNum++;
+    }
+
+    if (qNum == 1) {
+        question2();
+    }
+    else if (qNum == 2) {
+        question3();
+    }
+    else if (qNum == 3) {
+        question4();
+    }
+    else if (qNum == 4) {
+        question5();
+    }
+
+    else {
+        endQuiz();
+    }
 })
 
 //Question 1
@@ -59,18 +86,9 @@ function question1() {
     ans2.textContent = "<h1>";
     ans3.textContent = "<h3>";
     ans4.textContent = "<h6>";
+    ans2.classList.add("correct");
 
-    //check the answer
-    answerListEl.addEventListener("click", function(event) {
-        var answer = event.target;
-        if (answer == ans2) {
-            question2();
-        }
-        else {
-            timerEl.timeLeft = timerEl.timeLeft - 10;
-            question2();
-        }
-    })
+
 }
 
 //Question 2
@@ -81,17 +99,8 @@ function question2() {
     ans3.textContent = "number";
     ans4.textContent = "undefined";
 
-    //check the answer
-    answerListEl.addEventListener("click", function(event) {
-        var answer = event.target;
-        if (answer == ans3) {
-            question3();
-        }
-        else {
-            timerEl.timeLeft = timerEl.timeLeft - 10;
-            question3();
-        }
-    })
+    ans2.classList.remove("correct");
+    ans3.classList.add("correct");
 }
 
 //Question 3
@@ -102,17 +111,8 @@ function question3() {
     ans3.textContent = "number";
     ans4.textContent = "undefined";
 
-    //check the answer
-    answerListEl.addEventListener("click", function(event) {
-        var answer = event.target;
-        if (answer == ans1) {
-            question4();
-        }
-        else {
-            timerEl.timeLeft = timerEl.timeLeft - 10;
-            question4();
-        }
-    })
+    ans3.classList.remove("correct");
+    ans1.classList.add("correct");
 }
 
 //Question 4
@@ -123,17 +123,8 @@ function question4() {
     ans3.textContent = "number";
     ans4.textContent = "undefined";
 
-    //check the answer
-    answerListEl.addEventListener("click", function(event) {
-        var answer = event.target;
-        if (answer == ans4) {
-            question5();
-        }
-        else {
-            timerEl.timeLeft = timerEl.timeLeft - 10;
-            question5();
-        }
-    })
+    ans1.classList.remove("correct");
+    ans4.classList.add("correct");
 }
 
 //Question 5
@@ -144,23 +135,15 @@ function question5() {
     ans3.textContent = "number";
     ans4.textContent = "undefined";
 
-    //check the answer
-    answerListEl.addEventListener("click", function(event) {
-        var answer = event.target;
-        if (answer == ans2) {
-            endQuiz();
-        }
-        else {
-            timerEl.timeLeft = timerEl.timeLeft - 10;
-            endQuiz();
-        }
-    })
+    ans4.classList.remove("correct");
+    ans2.classList.add("correct");
 }
 
+//End of Quiz
 function endQuiz() {
     answerListEl.style.visibility = "hidden";
-    questionEl.textContent = "Game Over!";
-}
+    questionEl.textContent = "Game Over! Score: "+ timeRem;
+    clearInterval(timer);
+    timerEl.style.visibility = "hidden";
 
-//Start Timer
-timer();
+}
