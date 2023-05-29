@@ -25,13 +25,21 @@ prevscoreForm.style.visibility = "hidden";
 
 //Timer Functions
 var timeRem;
+
+// function timer() {
+//     timeRem--;
+//     timerEl.textContent = "Time: " + timeRem;
+
+
+// }
+
 var timer = setInterval(function() {
     timeRem--;
     timerEl.textContent = "Time: " + timeRem;
 
     if (timeRem <= 0) {
         timeRem = 0;
-        clearInterval(myTimer)
+        clearInterval(timer)
         endQuiz();
        }
 }, 1000)
@@ -192,7 +200,7 @@ restartButton.addEventListener("click", function() {
     
         if (timeRem <= 0) {
             timeRem = 0;
-            clearInterval(myTimer)
+            clearInterval(timer)
             endQuiz();
            }
     }, 1000);

@@ -1,11 +1,21 @@
-ul{
+body {
+    text-align: center;
+}
+
+#quizArea {
+    text-align: center;
+}
+
+ul {
     list-style-type: none;
+    display: inline-block;
 }
 
 li {
     border-radius: 3px;
     margin: 2px;
     padding-left: 3px;
+    text-align: center;
 }
 
 ul li {
