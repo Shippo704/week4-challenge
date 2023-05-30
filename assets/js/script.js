@@ -16,6 +16,7 @@ var qNum = 0;
 var score;
 var list = [];
 
+// Making sections visible/invisible before quiz starts
 restartButton.style.visibility = "hidden";
 questionEl.style.visibility = "hidden";
 answerListEl.style.visibility = "hidden";
@@ -55,13 +56,14 @@ function reduceTimer() {
     timeRem = timeRem - 10;
 }
 
-//Start Button Functionality
+// Start Button Functionality
 startButton.addEventListener("click", function() {
 
     var quizArea = document.getElementById("quizArea");
     quizArea.append(questionEl);
     quizArea.appendChild(answerListEl);
 
+    // Changing which sections are visible
     startButton.style.visibility = "hidden";
     timerEl.style.visibility = "visible";
     questionEl.style.visibility = "visible";
@@ -162,21 +164,24 @@ function question5() {
     ans2.classList.add("correct");
 }
 
-//End of Quiz
+// End of Quiz
 function endQuiz() {
     answerListEl.style.visibility = "hidden";
     score = timeRem;
     if (score<0) {
         score = 0;
     }
+    // Present Score and Stop Timer
     questionEl.textContent = "Game Over! Score: " + score;
     clearInterval(timer);
+    
+    // Change visibility of sections
     timerEl.style.visibility = "hidden";
     prevscoreForm.style.visibility = "visible";
     scoreList.style.visibility = "visible";
 }
 
-// Add previous score to list
+// Add score to list
 submitButton.addEventListener("click", function(event){
     event.preventDefault();
     var submitName = document.createElement("li");
@@ -190,15 +195,17 @@ submitButton.addEventListener("click", function(event){
     restartButton.style.visibility = "visible";
 })
 
-//Play again?
+// Play again?
 restartButton.addEventListener("click", function() {
     
+    // Reset visibility of sections to play the quiz
     restartButton.style.visibility = "hidden";
     timerEl.style.visibility = "visible";
     questionEl.style.visibility = "visible";
     answerListEl.style.visibility = "visible";
     scoreList.style.visibility = "hidden";
     
+    //Timer and question reset
     timeRem = 30;
     qNum = 0;
     timer = setInterval(function() {
