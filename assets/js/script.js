@@ -23,16 +23,23 @@ timerEl.style.visibility = "hidden";
 scoreList.style.visibility = "hidden";
 prevscoreForm.style.visibility = "hidden";
 
+//Retrieve Old Scores
+var oldlist = JSON.parse(localStorage.getItem("scores"));
+if (oldlist){
+    for (i=0; i<oldlist.length; i++) {
+        var oldscore = document.createElement("li");
+        oldscore.textContent = oldlist[i];
+        prevscoreEl.appendChild(oldscore);
+        list.push(oldlist[i]);
+        console.log(list);
+    }
+}
+localStorage.setItem("scores", JSON.stringify(list));
+
+
+
 //Timer Functions
 var timeRem;
-
-// function timer() {
-//     timeRem--;
-//     timerEl.textContent = "Time: " + timeRem;
-
-
-// }
-
 var timer = setInterval(function() {
     timeRem--;
     timerEl.textContent = "Time: " + timeRem;
